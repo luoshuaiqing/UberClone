@@ -13,6 +13,8 @@
 		86ACD4E825D289F90007C06A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 86ACD4E725D289F90007C06A /* Assets.xcassets */; };
 		86ACD4EB25D289F90007C06A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 86ACD4E925D289F90007C06A /* LaunchScreen.storyboard */; };
 		86CB50FD25DB1F2F004E480E /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CB50FC25DB1F2F004E480E /* LoginController.swift */; };
+		86CB510425DB25F6004E480E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CB510225DB25F6004E480E /* Extensions.swift */; };
+		86CB510525DB25F6004E480E /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86CB510325DB25F6004E480E /* Utilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		86ACD4EA25D289F90007C06A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		86ACD4EC25D289F90007C06A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		86CB50FC25DB1F2F004E480E /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		86CB510225DB25F6004E480E /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		86CB510325DB25F6004E480E /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +107,8 @@
 		86CB50FB25DB1ED4004E480E /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				86CB510225DB25F6004E480E /* Extensions.swift */,
+				86CB510325DB25F6004E480E /* Utilities.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -180,6 +186,8 @@
 				86ACD4DF25D289F60007C06A /* AppDelegate.swift in Sources */,
 				86CB50FD25DB1F2F004E480E /* LoginController.swift in Sources */,
 				86ACD4E125D289F60007C06A /* SceneDelegate.swift in Sources */,
+				86CB510525DB25F6004E480E /* Utilities.swift in Sources */,
+				86CB510425DB25F6004E480E /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
