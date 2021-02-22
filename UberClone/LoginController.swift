@@ -19,6 +19,43 @@ class LoginController: UIViewController {
         return label
     }()
     
+    private lazy var emailContainerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .red
+        
+        let imageView = UIImageView()
+        imageView.image = #imageLiteral(resourceName: "ic_mail_outline_white_2x")
+        imageView.alpha = 0.87
+        view.addSubview(imageView)
+        imageView.centerY(view: view)
+        imageView.anchor(leading: view.leadingAnchor, paddingLeft: 8, width: 24, height: 24)
+        
+        view.addSubview(emailTextField)
+        emailTextField.centerY(view: view)
+        emailTextField.anchor(leading: imageView.trailingAnchor, trailing: view.trailingAnchor, paddingLeft: 8)
+        
+        let separatorView = UIView()
+        separatorView.backgroundColor = .lightGray
+        view.addSubview(separatorView)
+        separatorView.anchor(leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, paddingLeft: 8, height: 0.75)
+        
+        return view
+    }()
+    
+    private let emailTextField: UITextField = {
+        let tf = UITextField()
+        
+        tf.borderStyle = .none
+        tf.font = UIFont.systemFont(ofSize: 16)
+        tf.textColor = .white
+        tf.keyboardAppearance = .dark
+        tf.attributedPlaceholder = NSAttributedString(string: "Email", attributes: [
+            NSAttributedString.Key.foregroundColor: UIColor.lightGray
+        ])
+        
+        return tf
+    }()
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -29,6 +66,9 @@ class LoginController: UIViewController {
         view.addSubview(titleLabel)
         titleLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor)
         titleLabel.centerX(view: view)
+        
+        view.addSubview(emailContainerView)
+        emailContainerView.anchor(top: titleLabel.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, paddingTop: 40, paddingLeft: 16, paddingRight: 16, height: 50)
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
