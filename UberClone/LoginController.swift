@@ -21,7 +21,6 @@ class LoginController: UIViewController {
     
     private lazy var emailContainerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .red
         
         let imageView = UIImageView()
         imageView.image = #imageLiteral(resourceName: "ic_mail_outline_white_2x")
