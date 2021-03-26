@@ -30,10 +30,11 @@ class Utilities {
         return view
     }
     
-    func textField(withPlaceholder placeholder: String) -> UITextField {
+    func textField(withPlaceholder placeholder: String, isSecureTextEntry: Bool = false) -> UITextField {
         let tf = UITextField()
         tf.textColor = .white
         tf.font = UIFont.systemFont(ofSize: 16)
+        tf.isSecureTextEntry = isSecureTextEntry
         tf.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
         return tf
     }
