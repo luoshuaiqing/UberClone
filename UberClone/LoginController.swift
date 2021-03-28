@@ -39,6 +39,30 @@ class LoginController: UIViewController {
         return Utilities().textField(withPlaceholder: "Password", isSecureTextEntry: true)
     }()
     
+    private let loginButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Log In", for: .normal)
+        button.setTitleColor(UIColor(white: 1, alpha: 0.5), for: .normal)
+        button.backgroundColor = .mainBlueTint
+        button.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        return button
+    }()
+    
+    private let dontHaveAccountButton: UIButton = {
+        let button = UIButton(type: .system)
+        let attributedTitle = NSMutableAttributedString(string: "Don't have an account?  ", attributes: [
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),
+            NSAttributedString.Key.foregroundColor: UIColor.lightGray
+        ])
+        attributedTitle.append(NSAttributedString(string: "Sign Up", attributes: [
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),
+            NSAttributedString.Key.foregroundColor: UIColor.mainBlueTint
+        ]))
+        button.setAttributedTitle(attributedTitle, for: .normal)
+        return button
+    }()
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -50,13 +74,17 @@ class LoginController: UIViewController {
         titleLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor)
         titleLabel.centerX(view: view)
         
-        let stack = UIStackView(arrangedSubviews: [emailContainerView, passwordContainerView])
+        let stack = UIStackView(arrangedSubviews: [emailContainerView, passwordContainerView, loginButton])
         stack.axis = .vertical
         stack.distribution = .fillEqually
-        stack.spacing = 16
+        stack.spacing = 24
         
         view.addSubview(stack)
         stack.anchor(top: titleLabel.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, paddingTop: 40, paddingLeft: 16, paddingRight: 16)
+        
+        view.addSubview(dontHaveAccountButton)
+        dontHaveAccountButton.centerX(view: view)
+        dontHaveAccountButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, height: 32)
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
