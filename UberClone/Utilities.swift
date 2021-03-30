@@ -9,23 +9,38 @@ import UIKit
 
 class Utilities {
     
-    func inputContainerView(withImage image: UIImage, textField: UITextField) -> UIView {
+    func inputContainerView(
+        withImage image: UIImage,
+        textField: UITextField? = nil,
+        segmentedControl: UISegmentedControl? = nil) -> UIView {
         let view = UIView()
-        let iv = UIImageView()
-        view.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
-        iv.image = image
-        view.addSubview(iv)
-        iv.anchor(leading: view.leadingAnchor, bottom: view.bottomAnchor, paddingLeft: 8, paddingBottom: 8)
-        iv.setDimensions(width: 24, height: 24)
+        let imageView = UIImageView()
+        imageView.image = image
+        imageView.alpha = 0.87
+        view.addSubview(imageView)
         
-        view.addSubview(textField)
-        textField.anchor(leading: iv.trailingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, paddingLeft: 8, paddingBottom: 8)
+        if let textField = textField {
+            imageView.centerY(view: view)
+            imageView.anchor(leading: view.leadingAnchor, paddingLeft: 8, width: 24, height: 24)
+            
+            view.addSubview(textField)
+            textField.centerY(view: view)
+            textField.anchor(leading: imageView.trailingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, paddingLeft: 8, paddingBottom: 8)
+        }
+        
+        if let sc = segmentedControl {
+            imageView.anchor(top: view.topAnchor, leading: view.leadingAnchor, paddingTop: -8, paddingLeft: 8, width: 24, height: 24)
+            
+            view.addSubview(sc)
+            sc.anchor(leading: view.leadingAnchor, trailing: view.trailingAnchor, paddingLeft: 8, paddingRight: 8)
+            sc.centerY(view: view, constant: 8)
+        }
 
-        let dividerView = UIView()
-        dividerView.backgroundColor = .white
-        view.addSubview(dividerView)
-        dividerView.anchor(leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, paddingLeft: 8, height: 0.75)
+        let separatorView = UIView()
+        separatorView.backgroundColor = .lightGray
+        view.addSubview(separatorView)
+        separatorView.anchor(leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, paddingLeft: 8, height: 0.75)
         
         return view
     }

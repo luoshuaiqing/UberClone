@@ -1,13 +1,13 @@
 //
-//  LoginController.swift
+//  SignUpController.swift
 //  UberClone
 //
-//  Created by 罗帅卿 on 2/15/21.
+//  Created by 罗帅卿 on 3/29/21.
 //
 
 import UIKit
 
-class LoginController: UIViewController {
+class SignUpController: UIViewController {
 
     // MARK: - Properties
     
@@ -25,9 +25,21 @@ class LoginController: UIViewController {
         return view
     }()
     
+    private lazy var fullnameContainerView: UIView = {
+        let view = Utilities().inputContainerView(withImage: #imageLiteral(resourceName: "ic_person_outline_white_2x"), textField: fullnameTextField)
+        view.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        return view
+    }()
+    
     private lazy var passwordContainerView: UIView = {
         let view = Utilities().inputContainerView(withImage: #imageLiteral(resourceName: "ic_lock_outline_white_2x"), textField: passwordTextField)
         view.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        return view
+    }()
+    
+    private lazy var accountTypeContainerView: UIView = {
+        let view = Utilities().inputContainerView(withImage: #imageLiteral(resourceName: "ic_account_box_white_2x"), segmentedControl: accountTypeSegmentedControl)
+        view.heightAnchor.constraint(equalToConstant: 80).isActive = true
         return view
     }()
     
@@ -35,29 +47,44 @@ class LoginController: UIViewController {
         return Utilities().textField(withPlaceholder: "Email")
     }()
     
+    private let fullnameTextField: UITextField = {
+        return Utilities().textField(withPlaceholder: "Fullname")
+    }()
+    
     private let passwordTextField: UITextField = {
         return Utilities().textField(withPlaceholder: "Password", isSecureTextEntry: true)
     }()
     
-    private let loginButton: AuthButton = {
+    private let accountTypeSegmentedControl: UISegmentedControl = {
+        let sc = UISegmentedControl(items: [
+            "Rider",
+            "Driver"
+        ])
+        sc.backgroundColor = .backgroundColor
+        sc.tintColor = UIColor(white: 1, alpha: 0.87)
+        sc.selectedSegmentIndex = 0
+        return sc
+    }()
+    
+    private let signupButton: AuthButton = {
         let button = AuthButton(type: .system)
-        button.setTitle("Log In", for: .normal)
+        button.setTitle("Sign Up", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         return button
     }()
     
-    private let dontHaveAccountButton: UIButton = {
+    private let alreadyHaveAccountButton: UIButton = {
         let button = UIButton(type: .system)
-        let attributedTitle = NSMutableAttributedString(string: "Don't have an account?  ", attributes: [
+        let attributedTitle = NSMutableAttributedString(string: "Already have an account?  ", attributes: [
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),
             NSAttributedString.Key.foregroundColor: UIColor.lightGray
         ])
-        attributedTitle.append(NSAttributedString(string: "Sign Up", attributes: [
+        attributedTitle.append(NSAttributedString(string: "Log In", attributes: [
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),
             NSAttributedString.Key.foregroundColor: UIColor.mainBlueTint
         ]))
         
-        button.addTarget(self, action: #selector(handleShowSignUp), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleShowLogin), for: .touchUpInside)
         
         button.setAttributedTitle(attributedTitle, for: .normal)
         return button
@@ -67,43 +94,40 @@ class LoginController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         configureUI()
     }
     
-    // MARK: - Selectors
+    // MARK: Selectors
     
-    @objc func handleShowSignUp() {
-        let controller = SignUpController()
-        navigationController?.pushViewController(controller, animated: true)
+    @objc func handleShowLogin() {
+        navigationController?.popViewController(animated: true)
     }
     
     // MARK: - Helper Functions
     
     func configureUI() {
-        configureNavigationBar()
-        
         view.backgroundColor = UIColor.init(red: 25/255, green: 25/255, blue: 25/255, alpha: 1)
         
         view.addSubview(titleLabel)
         titleLabel.anchor(top: view.safeAreaLayoutGuide.topAnchor)
         titleLabel.centerX(view: view)
         
-        let stack = UIStackView(arrangedSubviews: [emailContainerView, passwordContainerView, loginButton])
+        let stack = UIStackView(arrangedSubviews: [
+                                    emailContainerView,
+                                    passwordContainerView,
+                                    fullnameContainerView,
+                                    accountTypeContainerView,
+                                    signupButton])
         stack.axis = .vertical
-        stack.distribution = .fillEqually
+        stack.distribution = .fill
         stack.spacing = 24
         
         view.addSubview(stack)
         stack.anchor(top: titleLabel.bottomAnchor, leading: view.leadingAnchor, trailing: view.trailingAnchor, paddingTop: 40, paddingLeft: 16, paddingRight: 16)
         
-        view.addSubview(dontHaveAccountButton)
-        dontHaveAccountButton.centerX(view: view)
-        dontHaveAccountButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, height: 32)
-    }
-    
-    func configureNavigationBar() {
-        navigationController?.navigationBar.isHidden = true
-        navigationController?.navigationBar.barStyle = .black
+        view.addSubview(alreadyHaveAccountButton)
+        alreadyHaveAccountButton.centerX(view: view)
+        alreadyHaveAccountButton.anchor(bottom: view.safeAreaLayoutGuide.bottomAnchor, height: 32)
     }
 }
