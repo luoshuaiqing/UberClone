@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Firebase
 
 class SignUpController: UIViewController {
 
@@ -26,7 +27,7 @@ class SignUpController: UIViewController {
     }()
     
     private lazy var fullnameContainerView: UIView = {
-        let view = Utilities().inputContainerView(withImage: #imageLiteral(resourceName: "ic_person_outline_white_2x"), textField: fullnameTextField)
+        let view = Utilities().inputContainerView(withImage: #imageLiteral(resourceName: "ic_person_outline_white_2x"), textField: fullNameTextField)
         view.heightAnchor.constraint(equalToConstant: 50).isActive = true
         return view
     }()
@@ -47,7 +48,7 @@ class SignUpController: UIViewController {
         return Utilities().textField(withPlaceholder: "Email")
     }()
     
-    private let fullnameTextField: UITextField = {
+    private let fullNameTextField: UITextField = {
         return Utilities().textField(withPlaceholder: "Fullname")
     }()
     
@@ -70,6 +71,7 @@ class SignUpController: UIViewController {
         let button = AuthButton(type: .system)
         button.setTitle("Sign Up", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
+        button.addTarget(self, action: #selector(handleSignup), for: .touchUpInside)
         return button
     }()
     
@@ -102,6 +104,32 @@ class SignUpController: UIViewController {
     
     @objc func handleShowLogin() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @objc func handleSignup() {
+        guard let email = emailTextField.text else { return }
+        guard let password = passwordTextField.text else { return }
+        guard let fullName = fullNameTextField.text else { return }
+        let accountTypeIdx = accountTypeSegmentedControl.selectedSegmentIndex
+        
+        Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
+            if let error = error {
+                print("Failed to register user with error: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let uid = result?.user.uid else { return }
+            
+            let values = [
+                "email": email,
+                "fullName": fullName,
+                "accountType": accountTypeIdx
+            ] as [String: Any]
+            
+            Database.database().reference().child("users").child(uid).updateChildValues(values) { (error, ref) in
+                print("Successfully registered user and saved data..")
+            }
+        }
     }
     
     // MARK: - Helper Functions
