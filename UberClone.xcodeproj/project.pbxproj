@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		860CCF76261FCBA00026748A /* LocationInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860CCF75261FCB9F0026748A /* LocationInputView.swift */; };
 		866028E82613055D00D5ECB5 /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866028E72613055D00D5ECB5 /* AuthButton.swift */; };
 		8680A32926141E8400AA7645 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8680A32826141E8400AA7645 /* GoogleService-Info.plist */; };
 		868C1A7D2612B45200B0A765 /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868C1A7C2612B45200B0A765 /* SignUpController.swift */; };
@@ -26,6 +27,7 @@
 /* Begin PBXFileReference section */
 		05737FCAF047CCC2513E4AE1 /* Pods-UberClone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UberClone.release.xcconfig"; path = "Target Support Files/Pods-UberClone/Pods-UberClone.release.xcconfig"; sourceTree = "<group>"; };
 		718411215EB3A88E07710BDD /* Pods_UberClone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_UberClone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		860CCF75261FCB9F0026748A /* LocationInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInputView.swift; sourceTree = "<group>"; };
 		866028E72613055D00D5ECB5 /* AuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButton.swift; sourceTree = "<group>"; };
 		8680A32826141E8400AA7645 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		868C1A7C2612B45200B0A765 /* SignUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 			children = (
 				86ABDC4D261E538E001BB175 /* LocationInputActivationView.swift */,
 				866028E72613055D00D5ECB5 /* AuthButton.swift */,
+				860CCF75261FCB9F0026748A /* LocationInputView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -271,6 +274,7 @@
 				866028E82613055D00D5ECB5 /* AuthButton.swift in Sources */,
 				86CB50FD25DB1F2F004E480E /* LoginController.swift in Sources */,
 				86ACD4E125D289F60007C06A /* SceneDelegate.swift in Sources */,
+				860CCF76261FCBA00026748A /* LocationInputView.swift in Sources */,
 				86ABDC4E261E538E001BB175 /* LocationInputActivationView.swift in Sources */,
 				86F07BA7261BCE0400F5860C /* HomeController.swift in Sources */,
 				86CB510525DB25F6004E480E /* Utilities.swift in Sources */,
