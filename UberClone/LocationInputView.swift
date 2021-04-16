@@ -40,7 +40,7 @@ class LocationInputView: UIView {
     
     private let linkingView: UIView = {
         let view = UIView()
-        view.backgroundColor = .systemGray
+        view.backgroundColor = .darkGray
         return view
     }()
     
