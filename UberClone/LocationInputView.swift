@@ -17,19 +17,18 @@ class LocationInputView: UIView {
     
     weak var delegate: LocationInputViewDelegate?
     
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .darkGray
+        label.font = UIFont.systemFont(ofSize: 16)
+        return label
+    }()
+    
     private let backButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "baseline_arrow_back_black_36dp"), for: .normal)
         button.addTarget(self, action: #selector(handleBackTapped), for: .touchUpInside)
         return button
-    }()
-    
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Stephan Dowless"
-        label.textColor = .darkGray
-        label.font = UIFont.systemFont(ofSize: 16)
-        return label
     }()
     
     private let startLocationIndicatorView: UIView = {

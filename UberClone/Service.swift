@@ -14,7 +14,7 @@ struct Service {
     static let shared = Service()
     let currentUid = Auth.auth().currentUser?.uid
     
-    func fetchUserData() {
+    func fetchUserData(completion: @escaping(String) -> Void) {
         guard let currentUid = self.currentUid else { return }
         
         REF_USERS.child(currentUid).observeSingleEvent(of: .value) { (snapshot) in
@@ -23,7 +23,7 @@ struct Service {
                 let fullName = dict["fullName"] as? String
             else { return }
             
-            
+            completion(fullName)
         }
     }
 }
