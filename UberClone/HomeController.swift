@@ -34,6 +34,10 @@ class HomeController: UIViewController {
 
     // MARK: - API
     
+    func fetchUserData() {
+        Service.shared.fetchUserData()
+    }
+    
     func checkIfUserIsLoggedIn() {
         if Auth.auth().currentUser?.uid == nil {
             DispatchQueue.main.async {
@@ -44,6 +48,7 @@ class HomeController: UIViewController {
         } else {
             configureUI()
             enableLocaationServices()
+            fetchUserData()
         }
     }
     
