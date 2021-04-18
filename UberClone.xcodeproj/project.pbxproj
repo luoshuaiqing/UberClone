@@ -12,6 +12,7 @@
 		866028E82613055D00D5ECB5 /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 866028E72613055D00D5ECB5 /* AuthButton.swift */; };
 		8680A32926141E8400AA7645 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8680A32826141E8400AA7645 /* GoogleService-Info.plist */; };
 		8689004C262CECC1000F68AC /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8689004B262CECC1000F68AC /* Service.swift */; };
+		8689004F262CF66F000F68AC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8689004E262CF66F000F68AC /* User.swift */; };
 		868C1A7D2612B45200B0A765 /* SignUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 868C1A7C2612B45200B0A765 /* SignUpController.swift */; };
 		86ABDC4E261E538E001BB175 /* LocationInputActivationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86ABDC4D261E538E001BB175 /* LocationInputActivationView.swift */; };
 		86ACD4DF25D289F60007C06A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86ACD4DE25D289F60007C06A /* AppDelegate.swift */; };
@@ -34,6 +35,7 @@
 		866028E72613055D00D5ECB5 /* AuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButton.swift; sourceTree = "<group>"; };
 		8680A32826141E8400AA7645 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		8689004B262CECC1000F68AC /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		8689004E262CF66F000F68AC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		868C1A7C2612B45200B0A765 /* SignUpController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpController.swift; sourceTree = "<group>"; };
 		86ABDC4D261E538E001BB175 /* LocationInputActivationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInputActivationView.swift; sourceTree = "<group>"; };
 		86ACD4DB25D289F60007C06A /* UberClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UberClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -111,6 +113,7 @@
 		86CB50F725DB1EA8004E480E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				8689004E262CF66F000F68AC /* User.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8689004F262CF66F000F68AC /* User.swift in Sources */,
 				86ACD4DF25D289F60007C06A /* AppDelegate.swift in Sources */,
 				866028E82613055D00D5ECB5 /* AuthButton.swift in Sources */,
 				86CB50FD25DB1F2F004E480E /* LoginController.swift in Sources */,
