@@ -7,10 +7,13 @@
 
 import UIKit
 import Firebase
+import GeoFire
 
 class SignUpController: UIViewController {
 
     // MARK: - Properties
+    
+    private var location = LocationHandler.shared.locationManager.location
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -98,6 +101,8 @@ class SignUpController: UIViewController {
         super.viewDidLoad()
         
         configureUI()
+        
+        let sharedLocationManager = LocationHandler.shared.locationManager
     }
     
     // MARK: Selectors
@@ -126,7 +131,23 @@ class SignUpController: UIViewController {
                 "accountType": accountTypeIdx
             ] as [String: Any]
             
-            Database.database().reference().child("users").child(uid).updateChildValues(values) { (error, ref) in
+            // if is driver
+            if accountTypeIdx == 1 {
+                let geofire = GeoFire(firebaseRef: REF_DRIVER_LOCATIONS)
+                guard let location = self.location else { return }
+                
+                geofire.setLocation(location, forKey: uid) { (error) in
+                    if let error = error {
+                        print("error: \(error.localizedDescription)")
+                        return
+                    }
+                    self.uploadUserDataAndShowHomeController(uid: uid, values: values)
+                }
+            }
+            
+            self.uploadUserDataAndShowHomeController(uid: uid, values: values)
+            
+            REF_USERS.child(uid).updateChildValues(values) { (error, ref) in
                 guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
                 guard let controller = window.rootViewController as? HomeController else { return }
                 controller.configureUI()
@@ -136,6 +157,15 @@ class SignUpController: UIViewController {
     }
     
     // MARK: - Helper Functions
+    
+    func uploadUserDataAndShowHomeController(uid: String, values: [String: Any]) {
+        REF_USERS.child(uid).updateChildValues(values) { (error, ref) in
+            guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
+            guard let controller = window.rootViewController as? HomeController else { return }
+            controller.configureUI()
+            self.dismiss(animated: true, completion: nil)
+        }
+    }
     
     func configureUI() {
         view.backgroundColor = UIColor.init(red: 25/255, green: 25/255, blue: 25/255, alpha: 1)
