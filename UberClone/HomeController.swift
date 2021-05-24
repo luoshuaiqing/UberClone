@@ -22,6 +22,7 @@ class HomeController: UIViewController {
     private let inputActivationView = LocationInputActivationView()
     private let locationInputView = LocationInputView()
     private let tableView = UITableView()
+    private var searchResults = [MKPlacemark]()
     
     private var user: User? {
         didSet {
@@ -36,10 +37,10 @@ class HomeController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         overrideUserInterfaceStyle = .light
-        checkIfUserIsLoggedIn()
+        self.hideKeyboardWhenTappedAround()
         enableLocaationServices()
-        fetchUserData()
-        fetchDrivers()
+        
+        checkIfUserIsLoggedIn()
 //        signOut()
     }
 
@@ -58,7 +59,22 @@ class HomeController: UIViewController {
             guard let coordinate = driver.location?.coordinate else { return }
             let annotation = DriverAnnotation(uid: driver.uid, coordinate: coordinate)
             
-            self.mapView.addAnnotation(annotation)
+            // will be computed every time
+            var driverIsVisible: Bool {
+                return self.mapView.annotations.contains { (annotation) -> Bool in
+                    guard let driverAnno = annotation as? DriverAnnotation else { return false }
+                    if driverAnno.uid == driver.uid {
+                        driverAnno.updateAnnotationPosition(withCoordinate: coordinate)
+                        return true
+                    }
+                    return false
+                }
+            }
+            
+            if !driverIsVisible {
+                self.mapView.addAnnotation(annotation)
+            }
+            
         }
     }
     
@@ -70,7 +86,7 @@ class HomeController: UIViewController {
                 self.present(nav, animated: false)
             }
         } else {
-            configureUI()
+            configure()
         }
     }
     
@@ -88,6 +104,12 @@ class HomeController: UIViewController {
     }
     
     // MARK: - Helper Functions
+    
+    func configure() {
+        configureUI()
+        fetchUserData()
+        fetchDrivers()
+    }
     
     func configureUI() {
         configureMapView()
@@ -144,6 +166,29 @@ class HomeController: UIViewController {
     }
 }
 
+// MARK: - Map Helper Functions
+
+private extension HomeController {
+    func searchBy(naturalLanguageQuery: String, completion: @escaping([MKPlacemark]) -> Void) {
+        var results = [MKPlacemark]()
+        
+        let request = MKLocalSearch.Request()
+        request.region = mapView.region
+        request.naturalLanguageQuery = naturalLanguageQuery
+        
+        let search = MKLocalSearch(request: request)
+        search.start { (response, error) in
+            guard let response = response else { return }
+            
+            response.mapItems.forEach { (item) in
+                results.append(item.placemark)
+            }
+            
+            completion(results)
+        }
+    }
+}
+
 // MARK: - MKMapViewDelegate
 
 extension HomeController: MKMapViewDelegate {
@@ -158,6 +203,7 @@ extension HomeController: MKMapViewDelegate {
 }
 
 // MARK: - Location Services
+
 extension HomeController {
     
     func enableLocaationServices() {
@@ -206,6 +252,13 @@ extension HomeController: LocationInputViewDelegate {
             }
         }
     }
+    
+    func executeSearch(query: String) {
+        searchBy(naturalLanguageQuery: query) { (results) in
+            self.searchResults = results
+            self.tableView.reloadData()
+        }
+    }
 }
 
 
@@ -222,7 +275,7 @@ extension HomeController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? 2 : 5
+        return section == 0 ? 2 : searchResults.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -99,7 +99,8 @@ class SignUpController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.hideKeyboardWhenTappedAround()
+
         configureUI()
         
         let sharedLocationManager = LocationHandler.shared.locationManager
@@ -119,7 +120,7 @@ class SignUpController: UIViewController {
         
         Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
             if let error = error {
-                print("Failed to register user with error: \(error.localizedDescription)")
+                print("error: Failed to register user with error \(error.localizedDescription)")
                 return
             }
             
@@ -134,7 +135,10 @@ class SignUpController: UIViewController {
             // if is driver
             if accountTypeIdx == 1 {
                 let geofire = GeoFire(firebaseRef: REF_DRIVER_LOCATIONS)
-                guard let location = self.location else { return }
+                guard let location = self.location else {
+                    print("debug: user location can not be fetched")
+                    return
+                }
                 
                 geofire.setLocation(location, forKey: uid) { (error) in
                     if let error = error {
@@ -162,7 +166,7 @@ class SignUpController: UIViewController {
         REF_USERS.child(uid).updateChildValues(values) { (error, ref) in
             guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
             guard let controller = window.rootViewController as? HomeController else { return }
-            controller.configureUI()
+            controller.configure()
             self.dismiss(animated: true, completion: nil)
         }
     }
