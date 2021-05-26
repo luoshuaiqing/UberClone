@@ -280,6 +280,7 @@ extension HomeController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! LocationCell
+        cell.placemark = indexPath.section == 1 ? searchResults[indexPath.row] : nil
         return cell
     }
 }
